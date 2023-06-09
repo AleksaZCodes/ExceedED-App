@@ -5,7 +5,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
   // App state
   account: false,
   tutorial: false,
-  scheme: null,
+  colorScheme: null,
   headerExplanation: "",
 
   // User's data
