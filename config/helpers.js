@@ -1,3 +1,5 @@
+import { FONTS } from "./constants";
+
 // Checks if the dates are exactly 1 day apart
 export const isOneDayApart = (dateString1, dateString2) => {
   const date1 = new Date(dateString1);
@@ -8,7 +10,7 @@ export const isOneDayApart = (dateString1, dateString2) => {
 };
 
 // Used for condensing the code in STYLES
-export const createTextStyle = (size) => ({
+export const createTextStyle = (size, COLORS) => ({
   fontFamily: FONTS.semiBold,
   color: COLORS.text,
   fontSize: size,
