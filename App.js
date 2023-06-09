@@ -1,20 +1,105 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { Alert, StyleSheet, useColorScheme } from "react-native";
+import { DARK_COLORS, LIGHT_COLORS, SIZES, SPACING } from "./config/constants";
+import { createTextStyle } from "./config/helpers";
+import { useGlobalState } from "./config/globalState";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import NetInfo from "@react-native-community/netinfo";
+import * as SplashScreen from "expo-splash-screen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import WelcomeScreen from "./screens/WelcomeScreen";
+import HomeScreen from "./screens/HomeScreen";
+import { useCallback } from "react";
+
+const Stack = createNativeStackNavigator();
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  // Global state
+  const account = useGlobalState("account")[0];
+  const colorScheme = useGlobalState("colorScheme")[0];
+
+  // Color scheme based on device's or setting
+  const deviceScheme = useColorScheme();
+  const COLORS =
+    colorScheme || deviceScheme === "light" ? LIGHT_COLORS : DARK_COLORS;
+
+  // Global styles
+  const STYLES = StyleSheet.create({
+    // Regular styles
+    container: {
+      flex: 1,
+      backgroundColor: COLORS.background,
+    },
+    background: {
+      backgroundColor: COLORS.background,
+    },
+    card: {
+      backgroundColor: COLORS.background,
+      borderWidth: 3,
+      borderRadius: 20,
+      borderColor: COLORS.gray,
+      marginTop: SPACING.normal,
+      padding: SPACING.normal,
+      borderBottomWidth: 5,
+      borderRightWidth: 5,
+    },
+
+    // Text styles
+    ...Object.fromEntries(
+      Object.entries(SIZES).map(([key, size]) => {
+        const style = createTextStyle(size, COLORS);
+        return [key, style];
+      })
+    ),
+  });
+
+  // Theme used later in other components
+  const THEME = { colors: COLORS, styles: STYLES };
+
+  // Check for internet connection
+  const connectionUnsubscribe = NetInfo.addEventListener((state) => {
+    if (!state.isConnected) {
+      Alert.alert(
+        "Nema internet konekcije",
+        "Neophodno je da imate internet konekciju kako biste koristili aplikaciju. Povežite se i pokušajte ponovo."
+      );
+    }
+  });
+
+  // Hide the splashscreen when the app loads
+  const onLayoutRootView = useCallback(async () => {
+    if (true) {
+      await SplashScreen.hideAsync();
+    }
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView style={STYLES.container} onLayout={onLayoutRootView}>
+        {!account ? (
+          <NavigationContainer theme={THEME}>
+            <Stack.Navigator
+              initialRouteName="Welcome"
+              screenOptions={{ headerShown: false, animation: "none" }}
+            >
+              <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        ) : (
+          <NavigationContainer theme={THEME}>
+            <Stack.Navigator
+              initialRouteName="Home"
+              screenOptions={{ headerShown: false, animation: "none" }}
+            >
+              <Stack.Screen name="Home" component={HomeScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        )}
+
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
