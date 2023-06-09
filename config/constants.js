@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { changeHue } from "./colors";
+import { changeHue } from "./changeHue";
 
 // Colors
 const primary = "#3DCCAD";
