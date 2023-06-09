@@ -2,8 +2,10 @@ import { createGlobalState } from "react-hooks-global-state";
 
 // Creates a global state object with important keys
 const { setGlobalState, useGlobalState } = createGlobalState({
+  // App state
   account: false,
   tutorial: false,
+  scheme: null,
   headerExplanation: "",
 
   // User's data
