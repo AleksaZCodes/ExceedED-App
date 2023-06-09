@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Loads a string to storage
 export const setString = async (key, value) => {
@@ -7,7 +7,7 @@ export const setString = async (key, value) => {
   } catch (e) {
     alert(e);
   }
-}
+};
 
 // Fetches a string from storage
 export const getString = async (key) => {
@@ -17,7 +17,7 @@ export const getString = async (key) => {
   } catch (e) {
     alert(e);
   }
-}
+};
 
 // Loads a JSON object to storage
 export const setJSON = async (key, value) => {
@@ -27,23 +27,23 @@ export const setJSON = async (key, value) => {
   } catch (e) {
     alert(e);
   }
-}
+};
 
 // Fetches a string from storage and parses it to JSON
 export const getJSON = async (key) => {
   try {
     const jsonValue = await AsyncStorage.getItem(key);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch(e) {
+  } catch (e) {
     alert(e);
   }
-}
+};
 
 // Deletes an item from storage
 export const deleteItem = async (key) => {
   try {
     await AsyncStorage.removeItem(key);
-  } catch(e) {
+  } catch (e) {
     alert(e);
   }
-}
+};

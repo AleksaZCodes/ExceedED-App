@@ -1,5 +1,5 @@
-import * as Yup from 'yup';
-import { changeHue } from './colors';
+import * as Yup from "yup";
+import { changeHue } from "./colors";
 
 // Colors
 const primary = "#3DCCAD";
@@ -12,7 +12,7 @@ const accent_colors = {
   yellow: changeHue(primary, 60 - 167),
   green: changeHue(primary, 140 - 167),
   purple: changeHue(primary, 300 - 167),
-}
+};
 
 // Light theme
 export const LIGHT_COLORS = {
@@ -20,8 +20,8 @@ export const LIGHT_COLORS = {
   gray: "#D7D8DB",
   text: "#42394D",
 
-  ...accent_colors
-}
+  ...accent_colors,
+};
 
 // Dark theme
 export const DARK_COLORS = {
@@ -29,8 +29,8 @@ export const DARK_COLORS = {
   gray: "#55505C",
   text: accent_colors.white,
 
-  ...accent_colors
-}
+  ...accent_colors,
+};
 
 // Font sizes according to MD3
 export const SIZES = {
@@ -48,13 +48,13 @@ export const SIZES = {
   bodySmall: 12,
   labelLarge: 14,
   labelMedium: 12,
-  labelSmall: 11
+  labelSmall: 11,
 };
 
 // Spacing between elements
 export const SPACING = {
-  normal: 15
-}
+  normal: 15,
+};
 
 // Shorts for font names
 export const FONTS = {
@@ -72,7 +72,7 @@ export const customFonts = {
   "Signika-SemiBold": require("../assets/fonts/Signika-SemiBold.ttf"),
   "Signika-Light": require("../assets/fonts/Signika-Light.ttf"),
   "Signika-Medium": require("../assets/fonts/Signika-Medium.ttf"),
-}
+};
 
 // Verification schema for email and password auth
 export const AUTH_SCHEMA = Yup.object({
@@ -81,14 +81,12 @@ export const AUTH_SCHEMA = Yup.object({
     .email("Email mora biti validan!"),
   password: Yup.string()
     .required("Lozinka je obavezna!")
-    .min(6, "Lozinka mora imati najmanje 6 karaktera!")
+    .min(6, "Lozinka mora imati najmanje 6 karaktera!"),
 });
 
 // Verification schema for password reset
 export const EMAIL_SCHEMA = Yup.object({
-  email: Yup.string()
-    .required("Obavezno polje!")
-    .email("Mora biti validan!")
+  email: Yup.string().required("Obavezno polje!").email("Mora biti validan!"),
 });
 
 // Verification schema for name setup
@@ -96,15 +94,21 @@ export const NAME_SCHEMA = Yup.object({
   name: Yup.string()
     .required("Obavezno polje!")
     .max(20, "Može da sadrži najviše 20 karaktera!")
-    .matches(/^[abvgdđežzijklmnoprstćufhcčšqwxyABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠQWXY 0123456789]*$/, "Može da sadrži samo slova i brojeve!")
+    .matches(
+      /^[abvgdđežzijklmnoprstćufhcčšqwxyABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠQWXY 0123456789]*$/,
+      "Može da sadrži samo slova i brojeve!"
+    ),
 });
 
 // Verification schema for username setup
 export const USERNAME_SCHEMA = Yup.object({
   username: Yup.string()
     .required("Obavezno polje!")
-    .matches(/^[abvgdđežzijklmnoprstćufhcčšABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠ0123456789]*$/, "Može da sadrži samo slova i brojeve!")
-    .max(25, "Može da sadrži najviše 25 karaktera!")
+    .matches(
+      /^[abvgdđežzijklmnoprstćufhcčšABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠ0123456789]*$/,
+      "Može da sadrži samo slova i brojeve!"
+    )
+    .max(25, "Može da sadrži najviše 25 karaktera!"),
 });
 
 // Verification schema for grade setup
@@ -114,7 +118,7 @@ export const GRADE_SCHEMA = Yup.object({
     .required("Obavezno polje!")
     .integer("Mora biti ceo broj!")
     .lessThan(9, "Mora biti broj od 5 do 8!")
-    .moreThan(4, "Mora biti broj od 5 do 8!")
+    .moreThan(4, "Mora biti broj od 5 do 8!"),
 });
 
 // Verification schema for account details change
@@ -122,24 +126,33 @@ export const ACCOUNT_SCHEMA = Yup.object({
   name: Yup.string()
     .required("Obavezno polje!")
     .max(20, "Može da sadrži najviše 20 karaktera!")
-    .matches(/^[abvgdđežzijklmnoprstćufhcčšqwxyABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠQWXY 0123456789]*$/, "Može da sadrži samo slova i brojeve!"),
+    .matches(
+      /^[abvgdđežzijklmnoprstćufhcčšqwxyABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠQWXY 0123456789]*$/,
+      "Može da sadrži samo slova i brojeve!"
+    ),
   username: Yup.string()
     .required("Obavezno polje!")
-    .matches(/^[abvgdđežzijklmnoprstćufhcčšABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠ0123456789]*$/, "Može da sadrži samo slova i brojeve!")
+    .matches(
+      /^[abvgdđežzijklmnoprstćufhcčšABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠ0123456789]*$/,
+      "Može da sadrži samo slova i brojeve!"
+    )
     .max(25, "Može da sadrži najviše 25 karaktera!"),
   grade: Yup.number("Mora biti broj!")
     .typeError("Mora biti broj!")
     .required("Obavezno polje!")
     .integer("Mora biti ceo broj!")
     .lessThan(9, "Mora biti broj od 5 do 8!")
-    .moreThan(4, "Mora biti broj od 5 do 8!")
+    .moreThan(4, "Mora biti broj od 5 do 8!"),
 });
 
 // Verification schema for referrer username
 export const REFERRER_SCHEMA = Yup.object({
   referrer: Yup.string()
-    .matches(/^[abvgdđežzijklmnoprstćufhcčšABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠ0123456789]*$/, "Može da sadrži samo slova i brojeve!")
-    .max(25, "Može da sadrži najviše 25 karaktera!")
+    .matches(
+      /^[abvgdđežzijklmnoprstćufhcčšABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠ0123456789]*$/,
+      "Može da sadrži samo slova i brojeve!"
+    )
+    .max(25, "Može da sadrži najviše 25 karaktera!"),
 });
 
 // Verification schema for course codes
@@ -147,5 +160,5 @@ export const CODE_SCHEMA = Yup.object({
   code: Yup.string()
     .required("Obavezno polje!")
     .max(6, "Mora biti kod od tačno 6 karaktera!")
-    .min(6, "Mora biti kod od tačno 6 karaktera!")
+    .min(6, "Mora biti kod od tačno 6 karaktera!"),
 });
