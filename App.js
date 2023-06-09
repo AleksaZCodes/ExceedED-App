@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Alert, StyleSheet, useColorScheme } from "react-native";
 import { DARK_COLORS, LIGHT_COLORS, SIZES, SPACING } from "./config/constants";
@@ -6,16 +7,20 @@ import { useGlobalState } from "./config/globalState";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import NetInfo from "@react-native-community/netinfo";
 import * as SplashScreen from "expo-splash-screen";
+import * as Font from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import HomeScreen from "./screens/HomeScreen";
-import { useCallback } from "react";
+import { customFonts } from "./config/constants";
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  // Local state
+  const [ready, setReady] = useState(false);
+
   // Global state
   const account = useGlobalState("account")[0];
   const colorScheme = useGlobalState("colorScheme")[0];
@@ -67,6 +72,18 @@ export default function App() {
       );
     }
   });
+
+  // Prepare everything on loading
+  useEffect(() => {
+    const prepare = async () => {
+      try {
+        // Load the fonts from constants
+        await Font.loadAsync(customFonts);
+      } catch (e) {
+        alert(e);
+      }
+    };
+  }, []);
 
   // Hide the splashscreen when the app loads
   const onLayoutRootView = useCallback(async () => {
