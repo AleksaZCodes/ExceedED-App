@@ -1,6 +1,7 @@
-import { Image } from "expo-image";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import Button from "../components/Button";
+import { useTheme } from "@react-navigation/native";
+import { SPACING } from "../config/constants";
 
 const WelcomeScreen = ({ navigation }) => {
   const COLORS = useTheme().colors;
@@ -16,9 +17,9 @@ const WelcomeScreen = ({ navigation }) => {
       alignItems: "center",
     },
     logo: {
-      width: "80%",
-      aspectRatio: 5,
-      marginBottom: SPACING.normal,
+      width: 1920 / 7,
+      height: 272 / 7,
+      marginBottom: SPACING.normal * 2,
     },
     slogan: {
       color: COLORS.text,
@@ -30,6 +31,7 @@ const WelcomeScreen = ({ navigation }) => {
     },
     button: {
       marginBottom: SPACING.normal,
+      width: "90%",
     },
   });
 
@@ -37,12 +39,11 @@ const WelcomeScreen = ({ navigation }) => {
     <View style={[STYLES.container, styles.container1]}>
       <View style={[STYLES.container, styles.container]}>
         <Image
+          source={require("../assets/logo-foreground.png")}
+          resizeMode="contain"
           style={styles.logo}
-          source={require("../assets/logo-foreground.svg")}
-          contentFit="contain"
-          transition={100}
         />
-        <Text style={[STYLES.titleLarge, styles.slogan]}>
+        <Text style={[STYLES.titleMedium, styles.slogan]}>
           Nauči da učiš i nadmaši sebe.
         </Text>
       </View>
