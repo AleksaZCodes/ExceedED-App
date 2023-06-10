@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Alert, StyleSheet, useColorScheme } from "react-native";
 import { DARK_COLORS, LIGHT_COLORS, SIZES, SPACING } from "./config/constants";
 import { createTextStyle } from "./config/helpers";
-import { useGlobalState } from "./config/globalState";
+import { setGlobalState, useGlobalState } from "./config/globalState";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import NetInfo from "@react-native-community/netinfo";
 import * as SplashScreen from "expo-splash-screen";
@@ -20,10 +20,8 @@ const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  // Local state
-  const [ready, setReady] = useState(false);
-
   // Global state
+  const loading = useGlobalState("loading")[0];
   const account = useGlobalState("account")[0];
   const colorScheme = useGlobalState("colorScheme")[0];
 
@@ -84,7 +82,7 @@ export default function App() {
       } catch (e) {
         alert(e);
       } finally {
-        setReady(true);
+        setGlobalState(loading, false);
       }
     }
 
@@ -93,12 +91,12 @@ export default function App() {
 
   // Hide the splashscreen when the app loads
   const onLayoutRootView = useCallback(async () => {
-    if (ready) {
+    if (!loading) {
       await SplashScreen.hideAsync();
     }
-  }, [ready]);
+  }, [loading]);
 
-  if (!ready) return null;
+  if (loading) return null;
 
   return (
     <SafeAreaProvider>

@@ -3,6 +3,7 @@ import { createGlobalState } from "react-hooks-global-state";
 // Creates a global state object with important keys
 const { setGlobalState, useGlobalState } = createGlobalState({
   // App state
+  loading: true,
   account: false,
   tutorial: false,
   colorScheme: null,
