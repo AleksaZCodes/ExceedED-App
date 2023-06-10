@@ -13,6 +13,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import { customFonts } from "./config/constants";
 import TabsNavigator from "./screens/TabNavigator";
+import SignupScreen from "./screens/SignupScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -109,6 +110,7 @@ export default function App() {
               screenOptions={{ headerShown: false, animation: "none" }}
             >
               <Stack.Screen name="Welcome" component={WelcomeScreen} />
+              <Stack.Screen name="Signup" component={SignupScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         ) : (
