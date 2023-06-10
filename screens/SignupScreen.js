@@ -5,6 +5,10 @@ import { Formik } from "formik";
 import { AUTH_SCHEMA, SPACING } from "../config/constants";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
+import { setGlobalState } from "../config/globalState";
+import { useState } from "react";
+import Loading from "../components/Loading";
+import { supabase } from "../config/supabase";
 
 const SignupScreen = ({ navigation }) => {
   const COLORS = useTheme().colors;
@@ -22,6 +26,29 @@ const SignupScreen = ({ navigation }) => {
     },
   });
 
+  // Local state
+  const [loading, setLoading] = useState(false);
+
+  // Signs the user up with supabase
+  const signUpWithEmail = async ({ email, password }) => {
+    setLoading(true);
+
+    // Wait for supabase to process the request
+    const authentication = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    // Display errors if any
+    if (authentication.error) alert(authentication.error.name);
+
+    console.log(authentication.id);
+
+    setLoading(false);
+  };
+
+  if (loading) return <Loading c={COLORS} s={STYLES} />;
+
   return (
     <View style={[STYLES.container, styles.container]}>
       <Formik
@@ -30,7 +57,7 @@ const SignupScreen = ({ navigation }) => {
         validateOnChange={false}
         validateOnBlur={false}
         onSubmit={async (values) => {
-          await signup(values);
+          await signUpWithEmail(values);
         }}
       >
         {(formikProps) => (
