@@ -11,10 +11,11 @@ import * as Font from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "./screens/WelcomeScreen";
-import HomeScreen from "./screens/HomeScreen";
 import { customFonts } from "./config/constants";
+import TabsNavigator from "./screens/TabNavigator";
 
 const Stack = createNativeStackNavigator();
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -75,22 +76,28 @@ export default function App() {
 
   // Prepare everything on loading
   useEffect(() => {
-    const prepare = async () => {
+    async function prepare() {
       try {
         // Load the fonts from constants
         await Font.loadAsync(customFonts);
       } catch (e) {
         alert(e);
+      } finally {
+        setReady(true);
       }
-    };
+    }
+
+    prepare();
   }, []);
 
   // Hide the splashscreen when the app loads
   const onLayoutRootView = useCallback(async () => {
-    if (true) {
+    if (ready) {
       await SplashScreen.hideAsync();
     }
-  }, []);
+  }, [ready]);
+
+  if (!ready) return null;
 
   return (
     <SafeAreaProvider>
@@ -107,10 +114,10 @@ export default function App() {
         ) : (
           <NavigationContainer theme={THEME}>
             <Stack.Navigator
-              initialRouteName="Home"
+              initialRouteName="Tabs"
               screenOptions={{ headerShown: false, animation: "none" }}
             >
-              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="Tabs" component={TabsNavigator} />
             </Stack.Navigator>
           </NavigationContainer>
         )}
