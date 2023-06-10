@@ -14,6 +14,7 @@ import WelcomeScreen from "./screens/WelcomeScreen";
 import { customFonts } from "./config/constants";
 import TabsNavigator from "./screens/TabNavigator";
 import SignupScreen from "./screens/SignupScreen";
+import Loading from "./components/Loading";
 
 const Stack = createNativeStackNavigator();
 
@@ -96,7 +97,8 @@ export default function App() {
     }
   }, [loading]);
 
-  if (loading) return null;
+  // Show loading indicators
+  if (loading) return <Loading />;
 
   return (
     <SafeAreaProvider>
