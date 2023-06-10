@@ -83,7 +83,7 @@ export default function App() {
       } catch (e) {
         alert(e);
       } finally {
-        setGlobalState(loading, false);
+        setGlobalState("loading", false);
       }
     }
 
@@ -98,7 +98,7 @@ export default function App() {
   }, [loading]);
 
   // Show loading indicators
-  if (loading) return <Loading />;
+  if (loading) return <Loading c={COLORS} s={STYLES} />;
 
   return (
     <SafeAreaProvider>
