@@ -21,8 +21,10 @@ const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  // Local state
+  const [loading, setLoading] = useState(true);
+
   // Global state
-  const loading = useGlobalState("loading")[0];
   const account = useGlobalState("account")[0];
   const colorScheme = useGlobalState("colorScheme")[0];
 
@@ -83,7 +85,7 @@ export default function App() {
       } catch (e) {
         alert(e);
       } finally {
-        setGlobalState("loading", false);
+        setLoading(false);
       }
     }
 
@@ -97,8 +99,7 @@ export default function App() {
     }
   }, [loading]);
 
-  // Show loading indicators
-  if (loading) return <Loading c={COLORS} s={STYLES} />;
+  if (loading) return null;
 
   return (
     <SafeAreaProvider>
