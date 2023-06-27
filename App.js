@@ -15,6 +15,7 @@ import { customFonts } from "./config/constants";
 import TabsNavigator from "./screens/TabNavigator";
 import SignupScreen from "./screens/SignupScreen";
 import Loading from "./components/Loading";
+import LoginScreen from "./screens/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -115,6 +116,7 @@ export default function App() {
             >
               <Stack.Screen name="Welcome" component={WelcomeScreen} />
               <Stack.Screen name="Signup" component={SignupScreen} />
+              <Stack.Screen name="Login" component={LoginScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         ) : (
