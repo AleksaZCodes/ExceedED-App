@@ -28,7 +28,6 @@ const Input = (props) => {
   return (
     <TextInput
       {...props}
-      cursorColor={COLORS.primary}
       selectionColor={COLORS.primary}
       placeholderTextColor={COLORS.gray}
       style={[
