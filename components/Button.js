@@ -1,13 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { SIZES } from "../config/constants";
 import { useTheme } from "@react-navigation/native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 
 const Button = ({
   type,
   label,
   onPress,
   style,
+  iconType,
   iconName,
   iconColor,
   textColor,
@@ -57,12 +58,22 @@ const Button = ({
         ]}
         onPress={onPress}
       >
-        <MaterialCommunityIcons
-          name={iconName}
-          size={SIZES.headlineSmall}
-          color={iconColor}
-          style={{ marginRight: 5 }}
-        />
+        {iconType === "ANT" ? (
+          <AntDesign
+            name={iconName}
+            size={SIZES.headlineSmall}
+            color={iconColor}
+            style={{ marginRight: 5 }}
+          />
+        ) : (
+          <MaterialCommunityIcons
+            name={iconName}
+            size={SIZES.headlineSmall}
+            color={iconColor}
+            style={{ marginRight: 5 }}
+          />
+        )}
+
         <Text
           style={[
             STYLES.titleMedium,
@@ -82,12 +93,22 @@ const Button = ({
       style={[styles.container, styles.containerOutline, { ...style }]}
       onPress={onPress}
     >
-      <MaterialCommunityIcons
-        name={iconName}
-        size={SIZES.headlineSmall}
-        color={iconColor}
-        style={{ marginRight: 5 }}
-      />
+      {iconType === "ANT" ? (
+        <AntDesign
+          name={iconName}
+          size={SIZES.headlineSmall}
+          color={iconColor}
+          style={{ marginRight: 5 }}
+        />
+      ) : (
+        <MaterialCommunityIcons
+          name={iconName}
+          size={SIZES.headlineSmall}
+          color={iconColor}
+          style={{ marginRight: 5 }}
+        />
+      )}
+
       <Text
         style={[
           STYLES.titleMedium,
