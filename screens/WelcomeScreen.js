@@ -19,10 +19,10 @@ const WelcomeScreen = ({ navigation }) => {
     logo: {
       width: 1920 / 7,
       height: 272 / 7,
-      marginBottom: SPACING.normal * 2,
+      marginBottom: SPACING.normal,
     },
     slogan: {
-      color: COLORS.text,
+      color: COLORS.primary,
       textAlign: "center",
     },
     buttons: {
@@ -43,8 +43,8 @@ const WelcomeScreen = ({ navigation }) => {
           resizeMode="contain"
           style={styles.logo}
         />
-        <Text style={[STYLES.titleMedium, styles.slogan]}>
-          Nauči da učiš i nadmaši sebe.
+        <Text style={[STYLES.titleLarge, styles.slogan]}>
+          Nauči da učiš, nadmaši sebe.
         </Text>
       </View>
 
@@ -52,7 +52,7 @@ const WelcomeScreen = ({ navigation }) => {
         <Button
           type="full"
           style={styles.button}
-          label="NAPRAVI NALOG"
+          label="ZAPOČNI AVANTURU"
           onPress={() => navigation.navigate("Signup")}
         />
         <Button
