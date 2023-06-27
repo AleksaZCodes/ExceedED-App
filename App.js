@@ -108,7 +108,10 @@ export default function App() {
           <NavigationContainer theme={THEME}>
             <Stack.Navigator
               initialRouteName="Welcome"
-              screenOptions={{ headerShown: false, animation: "none" }}
+              screenOptions={{
+                headerShown: false,
+                animation: "fade",
+              }}
             >
               <Stack.Screen name="Welcome" component={WelcomeScreen} />
               <Stack.Screen name="Signup" component={SignupScreen} />
