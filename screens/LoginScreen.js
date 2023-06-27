@@ -140,7 +140,14 @@ const LoginScreen = ({ navigation }) => {
               onPress={() => formikProps.handleSubmit()}
             />
 
-            <TouchableText label="ZABORAVLJENA LOZINKA" />
+            <TouchableText
+              label="ZABORAVLJENA LOZINKA"
+              onPress={() =>
+                navigation.navigate("Password", {
+                  email: formikProps.values.email,
+                })
+              }
+            />
 
             <Text style={[STYLES.headlineSmall, styles.text]}>ili</Text>
 
