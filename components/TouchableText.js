@@ -6,7 +6,7 @@ const TouchableText = ({ onPress, label, style }) => {
   const STYLES = useTheme().styles;
 
   const styles = StyleSheet.create({
-    forgotPassword: {
+    text: {
       color: COLORS.primary,
       textAlign: "center",
     },
@@ -14,7 +14,7 @@ const TouchableText = ({ onPress, label, style }) => {
 
   return (
     <TouchableOpacity onPress={onPress} style={style}>
-      <Text style={[STYLES.bodyLarge, styles.forgotPassword]}>{label}</Text>
+      <Text style={[STYLES.bodyLarge, styles.text]}>{label}</Text>
     </TouchableOpacity>
   );
 };
