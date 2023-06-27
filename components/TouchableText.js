@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
-const TouchableText = ({ onPress, label }) => {
+const TouchableText = ({ onPress, label, style }) => {
   const COLORS = useTheme().colors;
   const STYLES = useTheme().styles;
 
@@ -13,7 +13,7 @@ const TouchableText = ({ onPress, label }) => {
   });
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={style}>
       <Text style={[STYLES.bodyLarge, styles.forgotPassword]}>{label}</Text>
     </TouchableOpacity>
   );
