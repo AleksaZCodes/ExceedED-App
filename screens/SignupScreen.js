@@ -1,15 +1,22 @@
-import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import * as Linking from "expo-linking";
 import { useTheme } from "@react-navigation/native";
 import { Formik } from "formik";
 import { AUTH_SCHEMA, SPACING } from "../config/constants";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import { supabase } from "../config/supabase";
 import * as WebBrowser from "expo-web-browser";
 import TouchableText from "../components/TouchableText";
+import CheckpointProgressBar from "../components/CheckpointProgressBar";
 
 const SignupScreen = ({ navigation }) => {
   const COLORS = useTheme().colors;
@@ -30,12 +37,37 @@ const SignupScreen = ({ navigation }) => {
       marginBottom: SPACING.normal,
     },
     button: {
-      marginBottom: SPACING.normal * 2,
+      marginBottom: SPACING.normal,
+    },
+    progressBar: {
+      marginTop: SPACING.normal * 2,
     },
   });
 
   // Local state
   const [loading, setLoading] = useState(false);
+  const [typing, setTyping] = useState(false);
+
+  // Keyboard shown listeners for the progress bar
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setTyping(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setTyping(false);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   // Signs the user up with email and password
   const signUpWithEmail = async ({ email, password }) => {
@@ -96,6 +128,15 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <View style={[STYLES.container, styles.container]}>
+      {!typing && (
+        <CheckpointProgressBar
+          style={styles.progressBar}
+          color={COLORS.primary}
+          width="90%"
+          checkpointNumber={3}
+          progress={6 / 8}
+        />
+      )}
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={AUTH_SCHEMA}
