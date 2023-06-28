@@ -11,6 +11,7 @@ const CheckpointProgressBar = ({
   width = "100%",
   height = 25,
   borderRadius = 25,
+  style,
 }) => {
   const COLORS = useTheme().colors;
 
@@ -89,13 +90,13 @@ const CheckpointProgressBar = ({
   const segmentWidth = segmentWidthPercents * barWidth;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View style={styles.starsContainer}>
         {Array(checkpointNumber)
           .fill()
           .map((_, index) => {
             const isFilled = index < lastIndex;
-            const starColor = isFilled ? COLORS.primary : COLORS.background;
+            const starColor = isFilled ? color : COLORS.background;
 
             return (
               <View
@@ -115,7 +116,7 @@ const CheckpointProgressBar = ({
                 ]}
               >
                 <AntDesign
-                  name="star"
+                  name={isFilled ? "star" : "staro"}
                   size={SIZES.displayMedium}
                   color={COLORS.gray}
                 />
